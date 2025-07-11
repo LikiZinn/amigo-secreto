@@ -1,10 +1,13 @@
 let amigos = [];
 
+
 function adicionar() {
     let amigo = document.getElementById('nome-amigo');
     let lista = document.getElementById('lista-amigos');
 
+
     amigos.push(amigo.value);
+
 
     if (lista.textContent == '') {
         lista.textContent = amigo.value;
@@ -12,11 +15,18 @@ function adicionar() {
         lista.textContent = lista.textContent + ', ' + amigo.value;
     }
 
+
     amigo.value = '';
+
+
+    atualizarLista();
+    atualizarSorteio();
 }
+
 
 function sortear() {
     embaralhar(amigos);
+
 
     let sorteio = document.getElementById('lista-sorteio');
     for (let i = 0; i < amigos.length; i++) {
@@ -28,6 +38,14 @@ function sortear() {
     }
 }
 
+
+function excluirAmigo(index) {
+    amigos.splice(index, 1);
+    atualizarLista();
+    atualizarSorteio();
+}
+
+
 function embaralhar(lista) {
     for (let indice = lista.length; indice; indice--) {
         const indiceAleatorio = Math.floor(Math.random() * indice);
@@ -35,8 +53,70 @@ function embaralhar(lista) {
     }
 }
 
+
+function atualizarSorteio() {
+    let sorteio = document.getElementById('lista-sorteio');
+    sorteio.innerHTML = '';
+}
+
+
+function atualizarLista() {
+    let lista = document.getElementById('lista-amigos');
+    lista.innerHTML = '';
+
+
+    for (let i = 0; i < amigos.length; i++) {
+        // Cria um elemento de parágrafo para cada amigo
+        let paragrafo = document.createElement('p');
+        paragrafo.textContent = amigos[i];
+       
+        // Adiciona um evento de clique para excluir o amigo
+        paragrafo.addEventListener('click', function() {
+            excluirAmigo(i);
+        });
+
+
+        // Adiciona o parágrafo à lista
+        lista.appendChild(paragrafo);
+    }
+}
+
+
 function reiniciar() {
     amigos = [];
     document.getElementById('lista-amigos').innerHTML = '';
     document.getElementById('lista-sorteio').innerHTML = '';
 }
+
+
+function embaralharArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  
+  novaLista = embaralharArray(novaLista);
+  console.log("Embaralhando a Lista:", novaLista);
+
+let minhaLista = [];
+
+minhaLista.push(1, 2, 3);
+console.log("Adicionando elementos:", minhaLista);
+
+let outrosNumeros = [4, 5, 6];
+
+let novaLista = minhaLista.concat(outrosNumeros);
+console.log("Juntando Arrays:", novaLista);
+
+novaLista.pop();
+console.log("Desafio 4:", novaLista);
+
+
+function removerDuplicatas(array) {
+    return [...new Set(array)];
+  }
+
+  let novaListaSemDuplicatas = removerDuplicatas(novaLista);
+  console.log("Remover duplicatas:", novaListaSemDuplicatas);
