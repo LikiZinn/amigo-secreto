@@ -3,6 +3,16 @@ let amigos = [];
 
 function adicionar() {
     let amigo = document.getElementById('nome-amigo');
+    if (amigo.value == '') {
+        alert('Informe o Nome do amigo!');
+        return;
+    }
+    
+    if (amigos.includes(amigo.value)) {
+        alert('Nome já Adicionado!');
+        return;
+    }
+
     let lista = document.getElementById('lista-amigos');
 
 
@@ -25,6 +35,12 @@ function adicionar() {
 
 
 function sortear() {
+if (amigos.length < 3) {
+    alert('Adicione pelo menos 3 Amigos!')
+    return;
+}
+
+
     embaralhar(amigos);
 
 
